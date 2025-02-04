@@ -17,6 +17,7 @@ nav ul {
     display: flex;
     justify-content: center;
     gap: 15px;
+    transition: all 0.3s ease;
 }
 
 
@@ -41,10 +42,21 @@ main {
     max-width: 800px;
 }
 
+.burger-menu{
+    display: none;
+    font-size: 30px;
+    background: none;
+    border: none;
+    cursor: pointer;
+    color: white;
+}
+
 @media (max-width: 768px){
     nav ul{
         flex-direction: column;
+        gap: 10px;
         align-items: center;
+        
     }
     body{
         background-color: lightblue;
@@ -57,6 +69,25 @@ main {
     main{
         width: 100%;
         padding: 15px;
+    }
+    .burger-menu{
+        display: block;
+        position: absolute;
+        top: 15px;
+        left: 15px;
+    }
+    nav{
+        display: none;
+        flex-direction: column;
+        background: #333;
+        width: 100%;
+        position: absolute;
+        top: 50px;
+        left: 0;
+        padding: 10px;
+    }
+    nav.active{
+        display: flex;
     }
 }
 
