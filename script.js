@@ -32,6 +32,35 @@ document.getElementById("changeButton").addEventListener("click", function(){
     }, 300);
 })
 
+//функция для сохранения списка задач в локальной памяти
+function saveTasks(){
+    let tasks=[];
+    document.querySelectorAll("#taskList li").forEach(li=>{
+        tasks.push(li.firstChild.textContent);
+    });
+    localStorage.setItem("tasks", JSON.stringify(tasks));
+}
+
+//загрузка списка задач из локальной памяти при перезагрузке страницы
+function loadTasks(){
+    let tasks=JSON.parse(localStorage.getItem("tasks")) || [];
+    tasks.forEach(taskText=>{
+        let li=document.createElement("li");
+        li.textContent=taskText;
+
+        let deleteBtn=document.createElement("button");
+        deleteBtn.textContent="❌";
+        deleteBtn.style.marginLeft="10px";
+        deleteBtn.addEventListener("click", function(){
+            li.remove();
+            saveTasks();
+        });
+
+        li.appendChild(deleteBtn);
+        document.getElementById("taskList").appendChild(li);
+    });
+}
+
 //динамический список задач
 document.getElementById("addTask").addEventListener("click", function(){
     let input= document.getElementById("taskInput");
@@ -40,8 +69,21 @@ document.getElementById("addTask").addEventListener("click", function(){
     if(taskText !== ""){
         let li= document.createElement("li");
         li.textContent= taskText;
+
+        //кнопка для удаления задач
+        let deleteBtn= document.createElement("button");
+        deleteBtn.textContent="❌";
+        deleteBtn.style.marginLeft="10px";
+        deleteBtn.addEventListener("click", function(){
+            li.remove(); //удаляет задачу при нажатии
+            saveTasks();
+        });
+
+        li.appendChild(deleteBtn);
         document.getElementById("taskList").appendChild(li);
         input.value ="";
+        saveTasks();
     }
-})
+});
 
+window.addEventListener("load", loadTasks);
