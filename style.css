@@ -55,6 +55,10 @@ main {
     transition: opacity 0.3s ease-in-out;
 }
 
+.completed{
+    text-decoration: line-through;
+    color: grey;
+}
 
 @media (max-width: 768px){
     nav ul{

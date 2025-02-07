@@ -36,7 +36,7 @@ document.getElementById("changeButton").addEventListener("click", function(){
 function saveTasks(){
     let tasks=[];
     document.querySelectorAll("#taskList li").forEach(li=>{
-        tasks.push(li.firstChild.textContent);
+        tasks.push(li.firstChild.textContent.trim());
     });
     localStorage.setItem("tasks", JSON.stringify(tasks));
 }
@@ -69,8 +69,14 @@ document.getElementById("addTask").addEventListener("click", function(){
 
 //делегирование событий на родительский элемент
 document.getElementById("taskList").addEventListener("click", function(event){
-    if(event.target.classList.contains("deleteBtn")){
+    if(event.target.tagName=="BUTTON"){
         event.target.parentElement.remove();
+        saveTasks();
+    }
+    
+    //отметка выполненных задач 
+    if (event.target.tagName === "LI"){
+        event.target.classList.toggle("completed");
         saveTasks();
     }
 })
