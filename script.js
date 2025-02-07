@@ -19,3 +19,8 @@ burgerMenu.addEventListener("click", function () {
     navMenu.classList.toggle("active");
     burgerMenu.textContent = navMenu.classList.contains("active") ? "✖" : "☰";
 });
+
+//изменяем текст по нажатию кнопки
+document.getElementById("changeButton").addEventListener("click", function(){
+    document.getElementById("text").textContent="Текст изменился!"
+})
