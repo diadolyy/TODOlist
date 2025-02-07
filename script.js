@@ -20,7 +20,16 @@ burgerMenu.addEventListener("click", function () {
     burgerMenu.textContent = navMenu.classList.contains("active") ? "✖" : "☰";
 });
 
-//изменяем текст по нажатию кнопки
+//изменяем текст по нажатию кнопки-переключателя с плавной анимацией
 document.getElementById("changeButton").addEventListener("click", function(){
-    document.getElementById("text").textContent="Текст изменился!"
+    let text=document.getElementById("text");
+    text.style.opacity="0";
+    setTimeout(() => {
+        text.textContent=text.textContent ==="Это обычный текст."
+        ? "Текст изменился!"
+        : "Это обычный текст."
+        text.style.opacity="1";
+    }, 300);
 })
+
+
