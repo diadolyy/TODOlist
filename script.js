@@ -46,18 +46,10 @@ function loadTasks(){
     let tasks=JSON.parse(localStorage.getItem("tasks")) || [];
     tasks.forEach(taskText=>{
         let li=document.createElement("li");
-        li.textContent=taskText;
-
-        let deleteBtn=document.createElement("button");
-        deleteBtn.textContent="❌";
-        deleteBtn.style.marginLeft="10px";
-        deleteBtn.addEventListener("click", function(){
-            li.remove();
-            saveTasks();
-        });
-
-        li.appendChild(deleteBtn);
+        
+        li.innerHTML='${taskText} <button class="deleteBtn">❌</button>';
         document.getElementById("taskList").appendChild(li);
+        
     });
 }
 
@@ -68,22 +60,19 @@ document.getElementById("addTask").addEventListener("click", function(){
 
     if(taskText !== ""){
         let li= document.createElement("li");
-        li.textContent= taskText;
-
-        //кнопка для удаления задач
-        let deleteBtn= document.createElement("button");
-        deleteBtn.textContent="❌";
-        deleteBtn.style.marginLeft="10px";
-        deleteBtn.addEventListener("click", function(){
-            li.remove(); //удаляет задачу при нажатии
-            saveTasks();
-        });
-
-        li.appendChild(deleteBtn);
+        li.innerHTML= '${taskText} <button class="deleteBtn">❌</button>'; //добавляет кнопку закрытия
         document.getElementById("taskList").appendChild(li);
         input.value ="";
         saveTasks();
     }
 });
+
+//делегирование событий на родительский элемент
+document.getElementById("taskList").addEventListener("click", function(event){
+    if(event.target.classList.contains("deleteBtn")){
+        event.target.parentElement.remove();
+        saveTasks();
+    }
+})
 
 window.addEventListener("load", loadTasks);
