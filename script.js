@@ -32,4 +32,16 @@ document.getElementById("changeButton").addEventListener("click", function(){
     }, 300);
 })
 
+//динамический список задач
+document.getElementById("addTask").addEventListener("click", function(){
+    let input= document.getElementById("taskInput");
+    let taskText= input.value.trim();
+
+    if(taskText !== ""){
+        let li= document.createElement("li");
+        li.textContent= taskText;
+        document.getElementById("taskList").appendChild(li);
+        input.value ="";
+    }
+})
 
