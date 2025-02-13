@@ -1,27 +1,24 @@
 document.addEventListener("DOMContentLoaded", function(){
-    const burgerMenu=document.getElementById("bureger-menu");
-    const navMenu=document.getElementById("nav-menu");
+    const burgerMenu=document.getElementById("burgerMenu");
+    const navMenu=document.getElementById("navMenu");
 
     burgerMenu.addEventListener("click", function(){
         navMenu.classList.toggle("active"); //добавляем/удаляем класс active, который делает меню видимым
+        burgerMenu.textContent = navMenu.classList.contains("active") ? "✖" : "☰";
+        
     })
-})
 
 //закрывает меню при нажатии за его пределами
-document.addEventListener("click", function(event){
-    if(!navMenu.contains(event.target) && !burgerMenu.contains(event.target)){
-        navMenu.classList.remove("active");
-    }
+    document.addEventListener("click", function(event){
+        if(!navMenu.contains(event.target) && !burgerMenu.contains(event.target)){
+            navMenu.classList.remove("active");
+        }
+    })
+
 })
 
-//меняет значок при открытии меню
-burgerMenu.addEventListener("click", function () {
-    navMenu.classList.toggle("active");
-    burgerMenu.textContent = navMenu.classList.contains("active") ? "✖" : "☰";
-});
-
 //изменяем текст по нажатию кнопки-переключателя с плавной анимацией
-document.getElementById("changeButton").addEventListener("click", function(){
+document.getElementById("changeText").addEventListener("click", function(){
     let text=document.getElementById("text");
     text.style.opacity="0";
     setTimeout(() => {
@@ -60,7 +57,7 @@ document.getElementById("addTask").addEventListener("click", function(){
 
     if(taskText !== ""){
         let li= document.createElement("li");
-        li.innerHTML= '${taskText} <button class="deleteBtn">❌</button>'; //добавляет кнопку закрытия
+        li.innerHTML= `${taskText} <button class="deleteBtn">❌</button>`; //добавляет кнопку закрытия
         document.getElementById("taskList").appendChild(li);
         input.value ="";
         saveTasks();
@@ -80,5 +77,32 @@ document.getElementById("taskList").addEventListener("click", function(event){
         saveTasks();
     }
 })
+
+document.getElementById("taskList").addEventListener("dblclick", function(event){
+    if(event.target.tagName === "LI"){
+        let oldText = event.target.textContent.replace(" ❌", "").trim();
+        let input = document.createElement("input");
+        input.type="text";
+        input.value=oldText;
+        event.target.innerHTML="";
+        event.target.appendChild(input);
+        input.focus();
+
+        input.addEventListener("blur",saveEdit);
+        input.addEventListener("keydown", function(e){
+            if(e.key ==="Enter") saveEdit();
+        });
+
+        function saveEdit(){
+            let newText = input.value.trim();
+            if(newText !==""){
+                event.target.innerHTML = `${newText} <button class="deleteBtn"> ❌</button>`;
+                saveTasks();
+            }else{
+                event.target.remove(); //удаляет пустую задачу
+            }
+        }
+    }
+});
 
 window.addEventListener("load", loadTasks);

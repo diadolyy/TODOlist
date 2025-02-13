@@ -94,7 +94,7 @@ main {
         top: 50px;
         left: 0;
         padding: 10px;
-    transition: all 0.3s ease;
+        transition: all 0.3s ease;
 
     }
     nav.active{
