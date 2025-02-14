@@ -68,10 +68,13 @@ form{
     margin: 0 auto;
 }
 
-input{
-    padding: 5px;
+input, textarea {
+    padding: 10px;
     font-size: 16px;
+    border: 1px solid #ccc;
+    border-radius: 5px;
 }
+
 
 button{
     background-color: #3498db;
@@ -80,6 +83,11 @@ button{
     border: none;
     cursor: pointer;
 }
+
+input.error, textarea.error {
+    border: 1px solid red;
+}
+
 
 
 @media (max-width: 768px){

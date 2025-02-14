@@ -112,8 +112,29 @@ document.getElementById("contactForm").addEventListener("submit", function(event
     const email=document.getElementById("email").value;
     const message=document.getElementById("message").value;
 
-    //простая валидация
-    if(name === "" || email === "" || message === ""){
+    // Простая валидация
+    if (name === "") {
+        document.getElementById("name").classList.add("error");
+        isValid = false;
+    } else {
+        document.getElementById("name").classList.remove("error");
+    }
+
+    if (email === "") {
+        document.getElementById("email").classList.add("error");
+        isValid = false;
+    } else {
+        document.getElementById("email").classList.remove("error");
+    }
+
+    if (message === "") {
+        document.getElementById("message").classList.add("error");
+        isValid = false;
+    } else {
+        document.getElementById("message").classList.remove("error");
+    }
+
+    if (!isValid) {
         alert("Все поля должны быть заполнены!");
         return;
     }
