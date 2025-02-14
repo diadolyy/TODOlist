@@ -105,4 +105,21 @@ document.getElementById("taskList").addEventListener("dblclick", function(event)
     }
 });
 
+document.getElementById("contactForm").addEventListener("submit", function(event){
+    event.preventDefault(); //останавливает отправку формы по умолчанию
+
+    const name=document.getElementById("name").value;
+    const email=document.getElementById("email").value;
+    const message=document.getElementById("message").value;
+
+    //простая валидация
+    if(name === "" || email === "" || message === ""){
+        alert("Все поля должны быть заполнены!");
+        return;
+    }
+
+    //вывод данных в консоль
+    console.log(`Имя: ${name}, Email: ${email}, Сообщение: ${message}`);
+})
+
 window.addEventListener("load", loadTasks);
