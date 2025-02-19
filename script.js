@@ -46,7 +46,7 @@ function loadTasks(){
     tasks.forEach(taskText=>{
         let li=document.createElement("li");
         
-        li.innerHTML='${taskText} <button class="deleteBtn">❌</button>';
+        li.innerHTML=`${taskText} <button class="deleteBtn">❌</button>`;
         document.getElementById("taskList").appendChild(li);
         
     });
