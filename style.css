@@ -60,7 +60,7 @@ main {
     color: grey;
 }
 
-form{
+form {
     display: flex;
     flex-direction: column;
     gap: 10px;
@@ -75,18 +75,20 @@ input, textarea {
     border-radius: 5px;
 }
 
-
-button{
+button {
     background-color: #3498db;
     color: white;
     padding: 10px;
     border: none;
     cursor: pointer;
+    border-radius: 5px;
 }
 
-input.error, textarea.error {
+/* Подсветка ошибок */
+.error {
     border: 1px solid red;
 }
+
 
 
 

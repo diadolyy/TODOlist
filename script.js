@@ -112,6 +112,8 @@ document.getElementById("contactForm").addEventListener("submit", function(event
     const email=document.getElementById("email").value;
     const message=document.getElementById("message").value;
 
+    let isValid=true;
+    
     // Простая валидация
     if (name === "") {
         document.getElementById("name").classList.add("error");
