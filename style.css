@@ -1,5 +1,5 @@
 body {
-    display: flex;
+    display: block;
     justify-content: center;
     align-items: center;
     height: 100vh; /* Занимает всю высоту экрана */
@@ -89,7 +89,10 @@ button {
     border: 1px solid red;
 }
 
-
+/* Альтернативный вариант с :invalid */
+input:invalid, textarea:invalid {
+    border: 2px solid red;
+}
 
 
 @media (max-width: 768px){

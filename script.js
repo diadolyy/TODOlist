@@ -15,6 +15,8 @@ document.addEventListener("DOMContentLoaded", function(){
         }
     })
 
+    
+
 })
 
 //изменяем текст по нажатию кнопки-переключателя с плавной анимацией
@@ -108,33 +110,45 @@ document.getElementById("taskList").addEventListener("dblclick", function(event)
 document.getElementById("contactForm").addEventListener("submit", function(event){
     event.preventDefault(); //останавливает отправку формы по умолчанию
 
-    const name=document.getElementById("name").value;
-    const email=document.getElementById("email").value;
-    const message=document.getElementById("message").value;
+    // const name=document.getElementById("name").value;
+    // const email=document.getElementById("email").value;
+    // const message=document.getElementById("message").value;
+
+    const form=document.getElementById("contactForm");
+    const inputs=form.querySelectorAll("input, textarea");
 
     let isValid=true;
     
     // Простая валидация
-    if (name === "") {
-        document.getElementById("name").classList.add("error");
-        isValid = false;
-    } else {
-        document.getElementById("name").classList.remove("error");
-    }
+    // if (name === "") {
+    //     document.getElementById("name").classList.add("error");
+    //     isValid = false;
+    // } else {
+    //     document.getElementById("name").classList.remove("error");
+    // }
 
-    if (email === "") {
-        document.getElementById("email").classList.add("error");
-        isValid = false;
-    } else {
-        document.getElementById("email").classList.remove("error");
-    }
+    // if (email === "") {
+    //     document.getElementById("email").classList.add("error");
+    //     isValid = false;
+    // } else {
+    //     document.getElementById("email").classList.remove("error");
+    // }
 
-    if (message === "") {
-        document.getElementById("message").classList.add("error");
-        isValid = false;
-    } else {
-        document.getElementById("message").classList.remove("error");
-    }
+    // if (message === "") {
+    //     document.getElementById("message").classList.add("error");
+    //     isValid = false;
+    // } else {
+    //     document.getElementById("message").classList.remove("error");
+    // }
+
+    inputs.forEach(inout=>{
+        if(input.value.trim()===""){
+            input.classList.add("error");
+            isValid=false;
+        }else{
+            input.classList.remove("error");
+        }
+    });
 
     if (!isValid) {
         alert("Все поля должны быть заполнены!");
@@ -143,6 +157,14 @@ document.getElementById("contactForm").addEventListener("submit", function(event
 
     //вывод данных в консоль
     console.log(`Имя: ${name}, Email: ${email}, Сообщение: ${message}`);
+
+    inputs.forEach(input=>{
+        input.addEventListener("input", function(){
+            if(input.value.trim()!==""){
+                input.classList.remove("error");
+            }
+        })
+    })
 })
 
 window.addEventListener("load", loadTasks);
