@@ -141,7 +141,7 @@ document.getElementById("contactForm").addEventListener("submit", function(event
     //     document.getElementById("message").classList.remove("error");
     // }
 
-    inputs.forEach(inout=>{
+    inputs.forEach(input=>{
         if(input.value.trim()===""){
             input.classList.add("error");
             isValid=false;
@@ -156,7 +156,7 @@ document.getElementById("contactForm").addEventListener("submit", function(event
     }
 
     //вывод данных в консоль
-    console.log(`Имя: ${name}, Email: ${email}, Сообщение: ${message}`);
+    console.log(`Имя: ${form.name.value}, Email: ${form.email.value}, Сообщение: ${form.message.value}`);
 
     inputs.forEach(input=>{
         input.addEventListener("input", function(){
