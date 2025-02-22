@@ -1,6 +1,7 @@
 document.addEventListener("DOMContentLoaded", function(){
     const burgerMenu=document.getElementById("burgerMenu");
     const navMenu=document.getElementById("navMenu");
+    const taskList=document.getElementById("taskList");
 
     burgerMenu.addEventListener("click", function(){
         navMenu.classList.toggle("active"); //добавляем/удаляем класс active, который делает меню видимым
@@ -15,6 +16,17 @@ document.addEventListener("DOMContentLoaded", function(){
         }
     })
 
+    //загружаем задачи с api
+    fetch("https://jsonplaceholder.typicode.com/todos?_limit=5")
+    .then(response=>response.json())
+    .then(data=>{
+        data.forEach(task=>{
+            const li= document.createElement("li");
+            li.innerHTML=`${task.title} <button class="deleteBtn">❌</button>`;
+            taskList.appendChild(li);
+        });
+    })
+    .catch(error=>console.error("Ошибка загрузки:", error));
     
 
 })
@@ -56,20 +68,51 @@ function loadTasks(){
 document.getElementById("addTask").addEventListener("click", function(){
     let input= document.getElementById("taskInput");
     let taskText= input.value.trim();
+    if(!taskText) return alert("Введите задачу!");
 
-    if(taskText !== ""){
-        let li= document.createElement("li");
-        li.innerHTML= `${taskText} <button class="deleteBtn">❌</button>`; //добавляет кнопку закрытия
+    fetch("https://jsonplaceholder.typicode.com/todos", {
+        method: "POST",
+        body: JSON.stringify({ title: taskText, completed: false }),
+        headers: { "Content-Type": "application/json" }
+    })
+    .then(response => response.json())
+    .then(data => {
+        const li = document.createElement("li");
+        li.innerHTML = `${data.title} <button class="deleteBtn">❌</button>`;
         document.getElementById("taskList").appendChild(li);
-        input.value ="";
-        saveTasks();
-    }
+        document.getElementById("taskInput").value = ""; // Очистка поля
+    })
+    .catch(error => console.error("Ошибка добавления:", error));
+
+    // if(taskText !== ""){
+    //     let li= document.createElement("li");
+    //     li.innerHTML= `${taskText} <button class="deleteBtn">❌</button>`; //добавляет кнопку закрытия
+    //     document.getElementById("taskList").appendChild(li);
+    //     input.value ="";
+    //     saveTasks();
+    // }
+    
 });
 
 //делегирование событий на родительский элемент
 document.getElementById("taskList").addEventListener("click", function(event){
     if(event.target.tagName=="BUTTON"){
-        event.target.parentElement.remove();
+        const li=event.target.parentElement;
+        const taskID=li.getAttribute("data-id"); //получаем ID задачи
+
+        fetch(`https://jsonplaceholder.typicode.com/todos/${taskID}`, {
+            method: "DELETE",
+        })
+        .then(response => {
+            if (response.ok) {
+                li.remove(); // Удаляем из DOM
+            } else {
+                console.error("Ошибка удаления");
+            }
+        })
+        .catch(error => console.error("Ошибка:", error));
+    
+        // event.target.parentElement.remove();
         saveTasks();
     }
     
