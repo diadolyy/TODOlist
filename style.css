@@ -112,6 +112,14 @@ input:invalid, textarea:invalid {
     color: white;
 }
 
+#searchInput{
+    width: 100%;
+    padding: 8px;
+    margin-bottom: 10px;
+    border: 1px solid #ccc;
+    border-radius: 4px;
+}
+
 @media (max-width: 768px){
     nav ul{
         flex-direction: column;

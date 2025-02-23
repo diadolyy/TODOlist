@@ -5,6 +5,7 @@ document.addEventListener("DOMContentLoaded", function(){
     const filterAll=document.getElementById("filterAll");
     const filterActive=document.getElementById("filterActive");
     const filterCompleted=document.getElementById("filterCompleted");
+    const searchInput=document.getElementById("searchInput");
 
     burgerMenu.addEventListener("click", function(){
         navMenu.classList.toggle("active"); //добавляем/удаляем класс active, который делает меню видимым
@@ -31,6 +32,7 @@ document.addEventListener("DOMContentLoaded", function(){
     })
     .catch(error=>console.error("Ошибка загрузки:", error));
     
+    // фильтрация задач
     function filterTasks(filterType){
         const tasks=document.querySelectorAll("li");
 
@@ -56,6 +58,18 @@ document.addEventListener("DOMContentLoaded", function(){
     filterAll.addEventListener("click", ()=> filterTasks("all"));
     filterActive.addEventListener("click", ()=> filterTasks("active"));
     filterCompleted.addEventListener("click", ()=> filterTasks("completed"));
+
+    // поиск задач
+    searchInput.addEventListener("input", function(){
+        const searchText=searchInput.value.toLowerCase();
+        const tasks=taskList.querySelectorAll("li");
+
+        tasks.forEach(task=>{
+            const taskText=task.textContent.toLowerCase();
+
+            task.style.display=taskText.includes(searchText)?"flex":"none";
+        })
+    })
 
 })
 
