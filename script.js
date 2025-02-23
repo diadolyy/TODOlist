@@ -162,17 +162,21 @@ document.getElementById("taskList").addEventListener("click", function(event){
         const li=event.target.parentElement;
         const taskID=li.getAttribute("data-id"); //получаем ID задачи
 
-        fetch(`https://jsonplaceholder.typicode.com/todos/${taskID}`, {
-            method: "DELETE",
-        })
-        .then(response => {
-            if (response.ok) {
-                li.remove(); // Удаляем из DOM
-            } else {
-                console.error("Ошибка удаления");
-            }
-        })
-        .catch(error => console.error("Ошибка:", error));
+        li.classList.add("fade-out");
+        setTimeout(() => {
+            fetch(`https://jsonplaceholder.typicode.com/todos/${taskID}`, {
+                method: "DELETE",
+            })
+            .then(response => {
+                if (response.ok) {
+                    li.remove(); // Удаляем из DOM
+                } else {
+                    console.error("Ошибка удаления");
+                }
+            })
+            .catch(error => console.error("Ошибка:", error));        
+        }, 300);
+        
     
         // event.target.parentElement.remove();
         saveTasks();
