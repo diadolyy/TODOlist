@@ -6,6 +6,8 @@ document.addEventListener("DOMContentLoaded", function(){
     const filterActive=document.getElementById("filterActive");
     const filterCompleted=document.getElementById("filterCompleted");
     const searchInput=document.getElementById("searchInput");
+    const themeToggle=document.getElementById("themeToggle");
+    const body=document.body;
 
     burgerMenu.addEventListener("click", function(){
         navMenu.classList.toggle("active"); //добавляем/удаляем класс active, который делает меню видимым
@@ -13,7 +15,7 @@ document.addEventListener("DOMContentLoaded", function(){
         
     })
 
-//закрывает меню при нажатии за его пределами
+    //закрывает меню при нажатии за его пределами
     document.addEventListener("click", function(event){
         if(!navMenu.contains(event.target) && !burgerMenu.contains(event.target)){
             navMenu.classList.remove("active");
@@ -71,19 +73,37 @@ document.addEventListener("DOMContentLoaded", function(){
         })
     })
 
+    // проверяем сохранена ли тема в localStorage
+    if(localStorage.getItem("theme")==="dark"){
+        body.classList.add("dark-theme");
+        themeToggle.textContent="☀️ Светлая тема";
+    }
+
+    themeToggle.addEventListener("click", function(){
+        body.classList.toggle("dark-theme");
+
+        if(body.classList.contains("dark-theme")){
+            localStorage.setItem("theme", "dark");
+            themeToggle.textContent="☀️ Светлая тема";
+        }else{
+            localStorage.setItem("theme", "light");
+            themeToggle.textContent="🌙 Темная тема";
+        }
+    })
+
 })
 
 //изменяем текст по нажатию кнопки-переключателя с плавной анимацией
-document.getElementById("changeText").addEventListener("click", function(){
-    let text=document.getElementById("text");
-    text.style.opacity="0";
-    setTimeout(() => {
-        text.textContent=text.textContent ==="Это обычный текст."
-        ? "Текст изменился!"
-        : "Это обычный текст."
-        text.style.opacity="1";
-    }, 300);
-})
+// document.getElementById("changeText").addEventListener("click", function(){
+//     let text=document.getElementById("text");
+//     text.style.opacity="0";
+//     setTimeout(() => {
+//         text.textContent=text.textContent ==="Это обычный текст."
+//         ? "Текст изменился!"
+//         : "Это обычный текст."
+//         text.style.opacity="1";
+//     }, 300);
+// })
 
 //функция для сохранения списка задач в локальной памяти
 function saveTasks(){
@@ -192,64 +212,64 @@ document.getElementById("taskList").addEventListener("dblclick", function(event)
     }
 });
 
-document.getElementById("contactForm").addEventListener("submit", function(event){
-    event.preventDefault(); //останавливает отправку формы по умолчанию
+// document.getElementById("contactForm").addEventListener("submit", function(event){
+//     event.preventDefault(); //останавливает отправку формы по умолчанию
 
-    // const name=document.getElementById("name").value;
-    // const email=document.getElementById("email").value;
-    // const message=document.getElementById("message").value;
+//     // const name=document.getElementById("name").value;
+//     // const email=document.getElementById("email").value;
+//     // const message=document.getElementById("message").value;
 
-    const form=document.getElementById("contactForm");
-    const inputs=form.querySelectorAll("input, textarea");
+//     const form=document.getElementById("contactForm");
+//     const inputs=form.querySelectorAll("input, textarea");
 
-    let isValid=true;
+//     let isValid=true;
     
-    // Простая валидация
-    // if (name === "") {
-    //     document.getElementById("name").classList.add("error");
-    //     isValid = false;
-    // } else {
-    //     document.getElementById("name").classList.remove("error");
-    // }
+//     // Простая валидация
+//     // if (name === "") {
+//     //     document.getElementById("name").classList.add("error");
+//     //     isValid = false;
+//     // } else {
+//     //     document.getElementById("name").classList.remove("error");
+//     // }
 
-    // if (email === "") {
-    //     document.getElementById("email").classList.add("error");
-    //     isValid = false;
-    // } else {
-    //     document.getElementById("email").classList.remove("error");
-    // }
+//     // if (email === "") {
+//     //     document.getElementById("email").classList.add("error");
+//     //     isValid = false;
+//     // } else {
+//     //     document.getElementById("email").classList.remove("error");
+//     // }
 
-    // if (message === "") {
-    //     document.getElementById("message").classList.add("error");
-    //     isValid = false;
-    // } else {
-    //     document.getElementById("message").classList.remove("error");
-    // }
+//     // if (message === "") {
+//     //     document.getElementById("message").classList.add("error");
+//     //     isValid = false;
+//     // } else {
+//     //     document.getElementById("message").classList.remove("error");
+//     // }
 
-    inputs.forEach(input=>{
-        if(input.value.trim()===""){
-            input.classList.add("error");
-            isValid=false;
-        }else{
-            input.classList.remove("error");
-        }
-    });
+//     inputs.forEach(input=>{
+//         if(input.value.trim()===""){
+//             input.classList.add("error");
+//             isValid=false;
+//         }else{
+//             input.classList.remove("error");
+//         }
+//     });
 
-    if (!isValid) {
-        alert("Все поля должны быть заполнены!");
-        return;
-    }
+//     if (!isValid) {
+//         alert("Все поля должны быть заполнены!");
+//         return;
+//     }
 
-    //вывод данных в консоль
-    console.log(`Имя: ${form.name.value}, Email: ${form.email.value}, Сообщение: ${form.message.value}`);
+//     //вывод данных в консоль
+//     console.log(`Имя: ${form.name.value}, Email: ${form.email.value}, Сообщение: ${form.message.value}`);
 
-    inputs.forEach(input=>{
-        input.addEventListener("input", function(){
-            if(input.value.trim()!==""){
-                input.classList.remove("error");
-            }
-        })
-    })
-})
+//     inputs.forEach(input=>{
+//         input.addEventListener("input", function(){
+//             if(input.value.trim()!==""){
+//                 input.classList.remove("error");
+//             }
+//         })
+//     })
+// })
 
 window.addEventListener("load", loadTasks);
