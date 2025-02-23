@@ -94,6 +94,23 @@ input:invalid, textarea:invalid {
     border: 2px solid red;
 }
 
+.filter-buttons{
+    display: flex;
+    gap: 10px;
+    margin-bottom: 15px;
+}
+
+.filter-btn{
+    padding: 5px 10px;
+    border: none;
+    cursor: pointer;
+    background-color: #eee;
+}
+
+.filter-btn.active{
+    background-color: #007bff;
+    color: white;
+}
 
 @media (max-width: 768px){
     nav ul{

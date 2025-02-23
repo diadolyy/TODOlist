@@ -2,6 +2,9 @@ document.addEventListener("DOMContentLoaded", function(){
     const burgerMenu=document.getElementById("burgerMenu");
     const navMenu=document.getElementById("navMenu");
     const taskList=document.getElementById("taskList");
+    const filterAll=document.getElementById("filterAll");
+    const filterActive=document.getElementById("filterActive");
+    const filterCompleted=document.getElementById("filterCompleted");
 
     burgerMenu.addEventListener("click", function(){
         navMenu.classList.toggle("active"); //добавляем/удаляем класс active, который делает меню видимым
@@ -28,6 +31,31 @@ document.addEventListener("DOMContentLoaded", function(){
     })
     .catch(error=>console.error("Ошибка загрузки:", error));
     
+    function filterTasks(filterType){
+        const tasks=document.querySelectorAll("li");
+
+        tasks.forEach(task => {
+            const isCompleted=task.classList.contains("completed");
+
+            if(filterType=="all"){
+                task.style.display="flex";
+            }else if(filterType=="active" && !isCompleted){
+                task.style.display="flex";
+            }else if(filterType=="completed" && isCompleted){
+                task.style.display="flex";
+            }else{
+                task.style.display="none";
+            }
+        });
+
+        // обновляем активное состояние кнопок
+        document.querySelectorAll(".filter-btn").forEach(btn=>btn.classList.remove("active"));
+        document.getElementById(`filter${filterType.charAt(0).toUpperCase()+filterType.slice(1)}`).classList.add("active");
+
+    }
+    filterAll.addEventListener("click", ()=> filterTasks("all"));
+    filterActive.addEventListener("click", ()=> filterTasks("active"));
+    filterCompleted.addEventListener("click", ()=> filterTasks("completed"));
 
 })
 
